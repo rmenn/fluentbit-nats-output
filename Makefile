@@ -1,10 +1,7 @@
 all: image
 
-so:
-	go build -buildmode=c-shared -o ./build/output/nats-output.so .
-
-image: so
-	docker build -f ./build/Dockerfile -t fluent/fluent-bit:1.9-nats .
+image:
+	docker buildx build --tag rmenn/fluentbit-nats-output:2.2v1 --builder gracious_tharp --platform linux/arm64/v8,linux/amd64 --push .
 
 clean:
 	rm -rf *.so *.h *~
